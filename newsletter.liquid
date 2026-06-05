@@ -1,0 +1,44 @@
+<section class="newsletter-section" id="newsletter">
+  <div class="container container--narrow reveal">
+    <p class="subtitle" style="color:var(--kl-gold);">{{ section.settings.subtitle | default: "Stay Connected" }}</p>
+    <h2>{{ section.settings.title | default: "Stories in Your Inbox" }}</h2>
+    <p>{{ section.settings.description | default: "New arrivals, artisan features, and care stories — delivered with grace." }}</p>
+
+    {%- form 'customer', id: 'newsletter-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter-form">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder | default: 'Your email address' }}"
+          required
+          aria-label="Email address"
+        >
+        <button type="submit" class="btn">
+          {{ section.settings.button_label | default: "Subscribe" }}
+        </button>
+      </div>
+      {%- if form.posted_successfully? -%}
+        <p style="color:var(--kl-gold-light);margin-top:1rem;font-style:italic;">✓ Thank you for subscribing.</p>
+      {%- endif -%}
+    {%- endform -%}
+
+    <p style="font-size:0.7rem;color:rgba(250,247,242,0.35);margin-top:1rem;margin-bottom:0;">
+      We respect your privacy. Unsubscribe at any time.
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Eyebrow Label", "default": "Stay Connected" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Stories in Your Inbox" },
+    { "type": "textarea", "id": "description", "label": "Description" },
+    { "type": "text", "id": "placeholder", "label": "Input Placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_label", "label": "Button Label", "default": "Subscribe" }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

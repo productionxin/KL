@@ -1,0 +1,56 @@
+<header class="site-header" id="shopify-section-header">
+  <div class="site-header__inner">
+    <nav class="site-header__nav" role="navigation" aria-label="Main navigation">
+      <a href="/collections/sarees" class="nav-link">Sarees</a>
+      <a href="/collections/lehengas" class="nav-link">Lehengas</a>
+      <a href="/collections/kurtas" class="nav-link">Kurtas</a>
+    </nav>
+
+    <a href="/" class="site-header__logo">
+      <span class="logo-name">KomalaLeela</span>
+      <span class="logo-tagline">Woven with Grace</span>
+    </a>
+
+    <div class="site-header__actions">
+      <a href="/collections/new" class="nav-link" style="margin-right: 0.5rem;">Collections</a>
+      <a href="/pages/about" class="nav-link" style="margin-right: 1rem;">Our Story</a>
+      <button class="header-icon" aria-label="Search" onclick="openSearch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+      <a href="/account" class="header-icon" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </a>
+      <button class="header-icon" aria-label="Open cart" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="cart-count" style="
+            position: absolute;
+            top: -6px; right: -6px;
+            background: var(--kl-gold);
+            color: var(--kl-deep);
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+          ">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [],
+  "presets": [{ "name": "Header" }]
+}
+{% endschema %}

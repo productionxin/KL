@@ -1,0 +1,100 @@
+{%- assign collection = collections[section.settings.collection] | default: collections.all -%}
+
+<section class="featured-collection section-padding" id="featured-collection">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="subtitle">{{ section.settings.subtitle | default: "Curated for You" }}</p>
+      <h2>{{ section.settings.title | default: "Featured Collection" }}</h2>
+      <p>{{ section.settings.description | default: "Each piece tells a story — handwoven, hand-embroidered, and crafted with generations of artisan knowledge." }}</p>
+    </div>
+
+    <div class="ornament-divider reveal">
+      <span class="lotus-ornament">❧</span>
+    </div>
+
+    <div class="product-grid">
+      {%- for product in collection.products limit: section.settings.products_to_show -%}
+        <div class="product-card reveal" style="animation-delay: {{ forloop.index | times: 0.1 }}s">
+          <div class="product-card__image-wrap">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="600"
+                height="800"
+              >
+            {%- else -%}
+              <div style="width:100%;height:100%;background:var(--kl-cream);display:grid;place-items:center;color:var(--kl-muted);">
+                No Image
+              </div>
+            {%- endif -%}
+
+            {%- if product.compare_at_price > product.price -%}
+              <span class="product-card__badge">Sale</span>
+            {%- elsif product.tags contains 'new' -%}
+              <span class="product-card__badge">New</span>
+            {%- endif -%}
+
+            <div class="product-card__actions">
+              <button class="product-card__action-btn" aria-label="Add to wishlist" title="Wishlist">♡</button>
+              <button class="product-card__action-btn" aria-label="Quick view" title="Quick View">⊙</button>
+            </div>
+          </div>
+
+          <div class="product-card__info">
+            <a href="{{ product.url }}">
+              <p style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--kl-muted);margin-bottom:0.25rem;">
+                {{ product.type }}
+              </p>
+              <h4 class="product-card__name">{{ product.title }}</h4>
+            </a>
+            <div class="product-card__meta">
+              <div class="product-card__price">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="compare">{{ product.compare_at_price | money }}</span>
+                {%- endif -%}
+                {{ product.price | money }}
+              </div>
+              <div class="product-card__variants">
+                {%- for variant in product.variants limit: 4 -%}
+                  {%- if variant.option1 contains '#' -%}
+                    <span class="variant-dot" style="background: {{ variant.option1 }}" title="{{ variant.title }}"></span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- else -%}
+        <p style="grid-column:1/-1;text-align:center;color:var(--kl-muted);">No products found in this collection.</p>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.show_view_all -%}
+      <div style="text-align:center;margin-top:var(--spacing-lg);">
+        <a href="{{ collection.url }}" class="btn btn--outline">
+          View All {{ collection.title }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "subtitle", "label": "Eyebrow Label", "default": "Curated for You" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Featured Collection" },
+    { "type": "textarea", "id": "description", "label": "Description" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "default": 6, "label": "Products to Show" },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show View All Button", "default": true }
+  ],
+  "presets": [{ "name": "Featured Collection" }]
+}
+{% endschema %}

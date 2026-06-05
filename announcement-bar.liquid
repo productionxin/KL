@@ -1,0 +1,18 @@
+<div class="announcement-bar">
+  {{ section.settings.text | default: "✦ Free Shipping on Orders Above ₹2999 &nbsp;&nbsp;|&nbsp;&nbsp; Handcrafted with Love in India ✦" }}
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement Text",
+      "default": "✦ Free Shipping on Orders Above ₹2999 | Handcrafted with Love in India ✦"
+    }
+  ],
+  "presets": [{ "name": "Announcement Bar" }]
+}
+{% endschema %}

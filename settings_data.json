@@ -1,0 +1,9 @@
+{
+  "current": {
+    "color_primary": "#C9A86C",
+    "color_background": "#FAF7F2",
+    "color_text": "#2C2416",
+    "cart_type": "drawer",
+    "animations_reveal_on_scroll": true
+  }
+}

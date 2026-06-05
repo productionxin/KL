@@ -1,0 +1,69 @@
+<section class="values-section section-padding" id="values-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="subtitle">{{ section.settings.subtitle | default: "What We Stand For" }}</p>
+      <h2>{{ section.settings.title | default: "Our Promise to You" }}</h2>
+    </div>
+
+    <div class="values-grid">
+      {%- for block in section.blocks -%}
+        <div class="value-card reveal" style="animation-delay: {{ forloop.index | times: 0.12 }}s" {{ block.shopify_attributes }}>
+          <div class="value-card__icon">{{ block.settings.icon | default: "✦" }}</div>
+          <h4>{{ block.settings.title | default: "Value" }}</h4>
+          <p>{{ block.settings.text | default: "Description of this value." }}</p>
+        </div>
+      {%- else -%}
+        <div class="value-card">
+          <div class="value-card__icon">🧵</div>
+          <h4>Handcrafted</h4>
+          <p>Every piece is created by skilled artisans using traditional techniques passed down through generations.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">🌿</div>
+          <h4>Sustainable</h4>
+          <p>We use natural dyes, organic fabrics, and ethical practices to protect both people and planet.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">💎</div>
+          <h4>Timeless</h4>
+          <p>Designed to transcend seasons — pieces that grow more beautiful with every wear and wash.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">🤝</div>
+          <h4>Fair Trade</h4>
+          <p>We ensure every artisan receives fair wages and works in dignified, safe conditions.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Values / Pillars",
+  "settings": [
+    { "type": "text", "id": "subtitle", "label": "Eyebrow Label", "default": "What We Stand For" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Our Promise to You" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon or Emoji", "default": "✦" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Values / Pillars",
+    "blocks": [
+      { "type": "value", "settings": { "icon": "🧵", "title": "Handcrafted", "text": "Every piece is created by skilled artisans using traditional techniques passed down through generations." }},
+      { "type": "value", "settings": { "icon": "🌿", "title": "Sustainable", "text": "We use natural dyes, organic fabrics, and ethical practices to protect both people and planet." }},
+      { "type": "value", "settings": { "icon": "💎", "title": "Timeless", "text": "Designed to transcend seasons — pieces that grow more beautiful with every wear and wash." }},
+      { "type": "value", "settings": { "icon": "🤝", "title": "Fair Trade", "text": "We ensure every artisan receives fair wages and works in dignified, safe conditions." }}
+    ]
+  }]
+}
+{% endschema %}

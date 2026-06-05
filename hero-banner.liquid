@@ -1,0 +1,52 @@
+<section class="hero" id="hero-section">
+  {%- if section.settings.image -%}
+    <img
+      class="hero__bg"
+      src="{{ section.settings.image | image_url: width: 2000 }}"
+      alt="{{ section.settings.image.alt | escape }}"
+      loading="eager"
+      fetchpriority="high"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.image.height }}"
+    >
+  {%- else -%}
+    <div class="hero__bg" style="background: linear-gradient(135deg, #2C2416 0%, #1A1208 100%);"></div>
+  {%- endif -%}
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <span class="hero__eyebrow">{{ section.settings.eyebrow | default: "New Collection — Monsoon 2025" }}</span>
+    <h1 class="hero__title">{{ section.settings.heading | default: "The Art of Timeless Drape" }}</h1>
+    <span class="hero__ornament"></span>
+    <p class="hero__subtitle">{{ section.settings.subheading | default: "Where ancient craft meets modern elegance" }}</p>
+    <div class="hero__actions">
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_url }}" class="btn btn--primary">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.button_2_label != blank -%}
+        <a href="{{ section.settings.button_2_url }}" class="btn btn--outline" style="color:var(--kl-ivory); border-color:rgba(250,247,242,0.5);">
+          {{ section.settings.button_2_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "New Collection — Monsoon 2025" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Art of Timeless Drape" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Where ancient craft meets modern elegance" },
+    { "type": "text", "id": "button_label", "label": "Button 1 Label", "default": "Shop Now" },
+    { "type": "url", "id": "button_url", "label": "Button 1 URL", "default": "/collections/all" },
+    { "type": "text", "id": "button_2_label", "label": "Button 2 Label", "default": "Our Story" },
+    { "type": "url", "id": "button_2_url", "label": "Button 2 URL", "default": "/pages/about" }
+  ],
+  "presets": [{ "name": "Hero Banner" }]
+}
+{% endschema %}
